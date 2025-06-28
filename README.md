@@ -16,6 +16,7 @@ The initial model used a simple CNN architecture without addressing class imbala
 #### 🔹 Improvements with Oversampling & Focal Loss
 To address the imbalance and improve minority class (female) performance, the following techniques were applied:
 
+- **Transfer Learning**: We used pre-trained convolutional backbones (ResNet50, EfficientNetV2, and ConvNeXt) to leverage learned feature representations and improve generalization on our dataset.
 - **Oversampling**: Balanced the dataset by oversampling female samples to ensure sufficient representation during training.
 - **Focal Loss**: Replaced standard cross-entropy loss with focal loss to focus the model on harder-to-classify samples.  
   - Tuned hyperparameters:  
@@ -23,6 +24,8 @@ To address the imbalance and improve minority class (female) performance, the fo
     - Gamma = 1.3
 
 These changes significantly improved female accuracy and overall model robustness.
+
+**Models Used:** ResNet50, EfficientNetV2, ConvNeXt (transfer learning).
 
 #### 🔹 Final Model Results
 After applying these methods and fine-tuning, the final model achieved high accuracy on both classes.  
