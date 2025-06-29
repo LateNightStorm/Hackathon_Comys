@@ -116,3 +116,17 @@ Accumulate true labels (1 for anchor-positive, 0 for anchor-negative) and predic
 **Metrics**: compute accuracy, precision, recall, and F1-score.
 
 **Progress logging**: prints percentage complete and final metrics.
+
+
+## Install the required packages:
+1. Download required packages.
+```python
+  pip install -r requirements.txt
+```
+
+2. In **testing.py**, go to line 12 and change the test data path to the directory where your test data is stored.
+
+3. Run the test script:
+```python 
+  python testing.py
+```
