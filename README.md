@@ -59,16 +59,22 @@ After applying these methods and fine-tuning, the final model achieved high accu
 - ✅ Precision: **0.9925**
 - ✅ Recall: **0.9041**
 
+## Install the required packages
+
+1. Download required packages.
+
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+2. In `testing.py`, go to line 58 and change the test data path to the directory where your test data is stored.
+
+3. Run the test script:
+
+    ```bash
+    python testing.py
+    ```
+
 ---
 
-### 2. Emotion Detection Sample
-![Emotion Detection](pics/emotion_sample.jpg)
 
----
-
-### 3. UI Screenshot
-![App UI](pics/ui_screenshot.png)
-
----
-
-## 📂 Folder Structure
