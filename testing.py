@@ -57,7 +57,7 @@ def main():
 
     val_dir = "./hackathon_test_dataset/"
 
-    model_path = "./hybrid_gender_model.h5"
+    model_path = "./hybrid_gender_model2.h5"
 
    
     model = tf.keras.models.load_model(
