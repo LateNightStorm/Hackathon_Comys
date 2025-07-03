@@ -3,6 +3,8 @@
 This repository contains our submission for the Hackathon. Below are the model outputs, visualizations, and relevant screenshots stored in the `pics/` folder.
 
 ---
+# There are two branches- 1. Main 2. Master
+The task_A gender classification has been submitted into the main branch and for the task_B face recognition, code and model have been stored into the master branch. 
 
 ## 📸 Sample Predictions
 
