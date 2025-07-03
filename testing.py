@@ -1,72 +1,54 @@
 import os
+import argparse
 import numpy as np
 import tensorflow as tf
 from tensorflow.keras.preprocessing import image
-from sklearn.metrics import classification_report, confusion_matrix
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, classification_report
 
-def evaluate_unseen_dataset(model, val_dir, image_size=(224, 224)):
-    total_images = 0
-    total_correct = 0
-
-    male_total = 0
-    male_correct = 0
-
-    female_total = 0
-    female_correct = 0
+def evaluate_entire_dataset(model, data_dir, image_size=(224, 224)):
+    y_true = []
+    y_pred = []
 
     for label in ['male', 'female']:
-        class_dir = os.path.join(val_dir, label)
+        class_dir = os.path.join(data_dir, label)
+        if not os.path.exists(class_dir):
+            continue
         for fname in os.listdir(class_dir):
             if fname.lower().endswith(('.jpg', '.jpeg', '.png')):
                 img_path = os.path.join(class_dir, fname)
                 img = image.load_img(img_path, target_size=image_size)
                 img_array = image.img_to_array(img)
-                img_array = np.expand_dims(img_array, axis=0)
+                img_array = tf.expand_dims(img_array, axis=0)
                 img_array = tf.keras.applications.resnet50.preprocess_input(img_array)
 
                 pred_prob = model.predict(img_array, verbose=0)[0][0]
-                pred_label = 'male' if pred_prob > 0.5 else 'female'
+                pred_label = 1 if pred_prob > 0.5 else 0
 
-                total_images += 1
+                y_pred.append(pred_label)
+                y_true.append(1 if label == 'male' else 0)
 
-                if label == 'male':
-                    male_total += 1
-                    if pred_label == 'male':
-                        male_correct += 1
-                        total_correct += 1
-                else:
-                    female_total += 1
-                    if pred_label == 'female':
-                        female_correct += 1
-                        total_correct += 1
+    # Calculate metrics
+    acc = accuracy_score(y_true, y_pred)
+    prec = precision_score(y_true, y_pred)
+    rec = recall_score(y_true, y_pred)
+    f1 = f1_score(y_true, y_pred)
 
-
-    overall_accuracy = (total_correct / total_images) * 100 if total_images > 0 else 0
-    male_accuracy = (male_correct / male_total) * 100 if male_total > 0 else 0
-    female_accuracy = (female_correct / female_total) * 100 if female_total > 0 else 0
-
-    print("\n✅ Hackathon Evaluation Results:")
-    print(f"Total Images      : {total_images}")
-    print(f"✔️  Correct        : {total_correct}")
-    print(f"❌ Incorrect      : {total_images - total_correct}")
-    print(f"✅ Overall Accuracy: {overall_accuracy:.2f}%\n")
-    print(f" Male Accuracy    : {male_accuracy:.2f}% (Correct: {male_correct}/{male_total})")
-    print(f" Female Accuracy  : {female_accuracy:.2f}% (Correct: {female_correct}/{female_total})")
+    print("\nClassification Report:\n")
+    print(classification_report(y_true, y_pred, target_names=['Female', 'Male']))
+    print(f"Accuracy : {acc:.4f}")
+    print(f"Precision: {prec:.4f}")
+    print(f"Recall   : {rec:.4f}")
+    print(f"F1-score : {f1:.4f}")
 
 def main():
-
-    val_dir = "./hackathon_test_dataset/"
+    parser = argparse.ArgumentParser(description='Evaluate gender classification model.')
+    parser.add_argument('test_data_path', type=str, help='Path to test dataset folder')
+    args = parser.parse_args()
 
     model_path = "./hybrid_gender_model2.h5"
+    model = tf.keras.models.load_model(model_path, compile=False)
 
-   
-    model = tf.keras.models.load_model(
-        model_path,
-        compile=False
-    )
-    print(" Model loaded successfully!")
-
-    evaluate_unseen_dataset(model, val_dir, image_size=(224, 224))
+    evaluate_entire_dataset(model, args.test_data_path)
 
 if __name__ == "__main__":
     main()
