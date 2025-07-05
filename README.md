@@ -55,11 +55,19 @@ After applying these methods and fine-tuning, the final model achieved high accu
 - **Weighted Average Recall**: 0.94
 - **Weighted Average F1-score**: 0.94
 
-**Summary Metrics:**
+**Summary Metrics for Training:**
 
 - ✅ F1 Score: **0.9462**
 - ✅ Precision: **0.9925**
 - ✅ Recall: **0.9041**
+
+**Summary Metrics for Validation:**
+
+- ✅ F1 Score: **0.9091**
+- ✅ Precision: **0.9299**
+- ✅ Recall: **0.8892**
+- **Overall Accuracy**: 0.86
+
 
 ## Install the required packages
 
@@ -69,10 +77,7 @@ After applying these methods and fine-tuning, the final model achieved high accu
     pip install -r requirements.txt
     ```
 
-2. In `testing.py`, **provide the test data path as a command line argument** when running the script. For example:
-
-```bash
-python testing.py /path/to/test_dataset
+2. In `testing.ipynb`, **provide the test data path in the last cell as instructed**.
 
 
 
