@@ -3,6 +3,8 @@
 This repository contains our submission for the Hackathon. Below are the model outputs, visualizations, and relevant screenshots stored in the `pics/` folder.
 
 ---
+# There are two branches- 1. Main 2. Master
+The task_A gender classification has been submitted into the main branch and for the task_B face recognition, code and model have been stored into the master branch. 
 
 ## 📸 Sample Predictions
 
@@ -67,14 +69,11 @@ After applying these methods and fine-tuning, the final model achieved high accu
     pip install -r requirements.txt
     ```
 
-2. In `testing.py`, go to line 58 and change the test data path to the directory where your test data is stored.
+2. In `testing.py`, **provide the test data path as a command line argument** when running the script. For example:
 
-3. Run the test script:
+```bash
+python testing.py /path/to/test_dataset
 
-    ```bash
-    python testing.py
-    ```
 
----
 
 
